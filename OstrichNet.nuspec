@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OstrichNet</id>
+    <version>1.0</version>
+    <authors>ehauser</authors>
+    <owners>ehauser</owners>
+	<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+	<projectUrl>http://github.com/ewhauser/OstrichNet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<description>.NET port of Twitter's Ostrich library for capturing performance metrics in a CLR app</description>
+    <tags>performance metrics counters</tags>
+    <dependencies>
+	  <dependency id="log4net" version="1.2.10" />
+      <dependency id="NewtonSoft.Json" version="4.0.2" />
+      <dependency id="NUnit" version="2.5.10.11092" />
+    </dependencies>
+  </metadata>
+</package>

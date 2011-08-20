@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OstrichNet", "OstrichNet\OstrichNet.csproj", "{CEF300CB-9AA6-48E5-8415-B6FA80CC0FFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OstrichNet.Tests", "OstrichNet.Tests\OstrichNet.Tests.csproj", "{6E5A2E03-F6FC-4D00-8BDE-9B004FE840B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEF300CB-9AA6-48E5-8415-B6FA80CC0FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF300CB-9AA6-48E5-8415-B6FA80CC0FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF300CB-9AA6-48E5-8415-B6FA80CC0FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF300CB-9AA6-48E5-8415-B6FA80CC0FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E5A2E03-F6FC-4D00-8BDE-9B004FE840B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E5A2E03-F6FC-4D00-8BDE-9B004FE840B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E5A2E03-F6FC-4D00-8BDE-9B004FE840B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E5A2E03-F6FC-4D00-8BDE-9B004FE840B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

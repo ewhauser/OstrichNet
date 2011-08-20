@@ -1,0 +1,7 @@
+OstrichNet.5.1.ReSharper.User
+*.suo
+_Resharper.OstrichNet
+OstrichNet/bin
+OstrichNet/obj
+OstrichNet.Tests/bin
+OstrichNet.Tests/obj
