@@ -46,12 +46,16 @@ namespace OstrichNet.Service
         {
         }
 
-        public TimeSeriesCollector(bool collect)
+        public TimeSeriesCollector(StatsListener listener, bool collect = true)
         {
-            listener = StatsListener.Default;
+            this.listener = listener;
             if (!collect) return;
             collectionTimer = new Timer(Periodic, null, Timeout.Infinite, 60000);
             collectionTimer.Change(10000, 60000);
+        }
+
+        public TimeSeriesCollector(bool collect) : this (StatsListener.Default, collect)
+        {
         }
 
         public IEnumerable<string> GetKeys()

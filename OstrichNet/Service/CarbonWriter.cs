@@ -31,7 +31,7 @@ namespace OstrichNet.Service
     public static class CarbonWriterFactory
     {
         //TODO Internal configuration classes can't be used here, so this needs work.
-        private static readonly Lazy<CarbonWriter> carbonWriter = new Lazy<CarbonWriter>(() => new CarbonWriter(null), LazyThreadSafetyMode.ExecutionAndPublication);
+        private static readonly Lazy<CarbonWriter> carbonWriter = new Lazy<CarbonWriter>(() => new CarbonWriter(new CarbonWriterConfiguration() {Enabled = false}), LazyThreadSafetyMode.ExecutionAndPublication);
 
         public static CarbonWriter Instance()
         {
@@ -71,8 +71,8 @@ namespace OstrichNet.Service
                     client.Close();
                     client = null;
                 }
-
-                if (config.Enabled && !senderThread.IsAlive)
+                
+                if (config != null && config.Enabled && !senderThread.IsAlive)
                 {
                     collectionTimer.Change(0, config.BufferMillis);
                     senderThread.Start();

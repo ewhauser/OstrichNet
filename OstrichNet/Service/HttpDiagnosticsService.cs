@@ -43,6 +43,15 @@ namespace OstrichNet.Service
         private IDisposable pipe;
         private readonly CarbonWriter carbonWriter;
 
+        /// <summary>
+        /// Get the configured tcp/ip port, or -1 if no configuration 
+        /// has been set.
+        /// </summary>
+        public int Port
+        {
+            get { return configuration != null ? configuration.Port : -1; }
+        }
+        
         public HttpDiagnosticsService() : this(GetConfiguration())
         {
         }
@@ -99,7 +108,7 @@ namespace OstrichNet.Service
                             handler = serviceInfoHandler;
                         else if (path.StartsWith("/ping"))
                             handler = pingHandler;
-                        else if (path.StartsWith("/static/"))
+                        else if (path.StartsWith("/static"))
                             handler = staticResourceHandler;
                         else if (path.StartsWith("/report"))
                         {
