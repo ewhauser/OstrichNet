@@ -28,27 +28,28 @@ namespace OstrichNet.Tests
     public class TimeSeriesCollectorTests
     {
         private StatsCollection stats;
+        private StatsListener listener;
         private TimeSeriesCollector collector;
         private IDisposable timeFreeze;
 
         [SetUp]
         public void Setup()
         {
-            stats = Stats.GetDefault();
-            stats.ClearAll();
-            collector = new TimeSeriesCollector(false);
+            stats = new StatsCollection();
+            listener = new StatsListener(stats);
+            collector = new TimeSeriesCollector(listener, false);
             timeFreeze = SystemClock.Freeze();
         }
 
         [Test]
         public void StatsIncr()
         {
-            Stats.Incr("cats");
-            Stats.Incr("dogs", 3);
+            stats.Increment("cats");
+            stats.Increment("dogs", 3);
 
             collector.Periodic(null);
 
-            Stats.Incr("dogs", 60000);
+            stats.Increment("dogs", 60000);
             SystemClock.Advance(TimeSpan.FromMinutes(1));
 
             collector.Periodic(null);
@@ -66,11 +67,11 @@ namespace OstrichNet.Tests
         [Test]
         public void StatsWithCounterUpdate()
         {
-            Stats.Incr("tps", 10);
+            stats.Increment("tps", 10);
 
             collector.Periodic(null);
             SystemClock.Advance(TimeSpan.FromMinutes(1));
-            Stats.Incr("tps", 5);
+            stats.Increment("tps", 5);
             collector.Periodic(null);
 
             var series = collector.Get("counter:tps", null);
@@ -86,10 +87,10 @@ namespace OstrichNet.Tests
         [Test]
         public void SpecificTimingProfiles()
         {
-            Stats.AddMetric("run", 5);
-            Stats.AddMetric("run", 10);
-            Stats.AddMetric("run", 15);
-            Stats.AddMetric("run", 20);
+            stats.RecordMetric("run", 5);
+            stats.RecordMetric("run", 10);
+            stats.RecordMetric("run", 15);
+            stats.RecordMetric("run", 20);
 
             collector.Periodic(null);
 
