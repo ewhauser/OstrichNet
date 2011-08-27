@@ -91,13 +91,13 @@
     <Compile Include="Util\Guard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Service\Static\drawgraph.js" />
-    <Content Include="Service\Static\graph.html" />
-    <Content Include="Service\Static\index.html" />
-    <Content Include="Service\Static\jquery.flot.js" />
-    <Content Include="Service\Static\jquery.flot.selection.js" />
-    <Content Include="Service\Static\jquery.js" />
-    <Content Include="Service\Static\report.html" />
+    <EmbeddedResource Include="Service\Static\drawgraph.js" />
+    <EmbeddedResource Include="Service\Static\graph.html" />
+    <EmbeddedResource Include="Service\Static\index.html" />
+    <EmbeddedResource Include="Service\Static\jquery.flot.js" />
+    <EmbeddedResource Include="Service\Static\jquery.flot.selection.js" />
+    <EmbeddedResource Include="Service\Static\jquery.js" />
+    <EmbeddedResource Include="Service\Static\report.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
