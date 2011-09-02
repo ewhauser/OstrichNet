@@ -20,6 +20,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 
 namespace OstrichNet.Service
@@ -29,15 +30,10 @@ namespace OstrichNet.Service
         private const string TimerKey = "__diagnostics:timer:key";
         private static readonly Regex pathsToTime = new Regex(@"^/+(.+)(/|.aspx|.asp)$");
 
-        private HttpDiagnosticsService diagnosticsService;
-
-        /// <summary>
-        /// Initializes a module and prepares it to handle requests.
-        /// </summary>
-        /// <param name="context">An <see cref="T:System.Web.HttpApplication"/> that provides access to the methods, properties, and events common to all application objects within an ASP.NET application</param>
-        public void Init(HttpApplication context)
+        private static readonly Lazy<HttpDiagnosticsService> diagnosticsService = new Lazy<HttpDiagnosticsService>(() =>
         {
             var key = typeof(HttpDiagnosticsService).FullName + ".port";
+
             int port;
             if (!ConfigurationManager.AppSettings.AllKeys.Contains(key) || !Int32.TryParse(ConfigurationManager.AppSettings[key], out port))
             {
@@ -45,11 +41,26 @@ namespace OstrichNet.Service
                                                     "' that specifies the port " +
                                                     " for the diagnostics service to use");
             }
-            diagnosticsService = new HttpDiagnosticsService(port);
-            diagnosticsService.Start();
+            var service = new HttpDiagnosticsService(port);
+
+            service.Start();
+
+            return service;
+
+        }, LazyThreadSafetyMode.ExecutionAndPublication);
+
+
+        /// <summary>
+        /// Initializes a module and prepares it to handle requests.
+        /// </summary>
+        /// <param name="context">An <see cref="T:System.Web.HttpApplication"/> that provides access to the methods, properties, and events common to all application objects within an ASP.NET application</param>
+        public void Init(HttpApplication context)
+        {
+            var service = diagnosticsService.Value;
+
             context.BeginRequest += BeginRequest;
             context.EndRequest += EndRequest;
-        }
+        }        
 
         private static void BeginRequest(object sender, EventArgs e)
         {
@@ -87,7 +98,14 @@ namespace OstrichNet.Service
         /// </summary>
         public void Dispose()
         {
-            diagnosticsService.Dispose();
         }
+
+		~DiagnosticsHttpModule() {
+			try {
+              diagnosticsService.Value.Dispose();
+			} catch {
+			  //ignored
+			}
+		}
     }
 }
